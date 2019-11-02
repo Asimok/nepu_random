@@ -3,6 +3,7 @@
     <words>
       <w>allname</w>
       <w>allnum</w>
+      <w>allscore</w>
       <w>everydayname</w>
       <w>filenum</w>
       <w>lengthofday</w>
@@ -12,6 +13,7 @@
       <w>tempallname</w>
       <w>thisfile</w>
       <w>thisname</w>
+      <w>thisrow</w>
       <w>thisvalue</w>
       <w>totalnum</w>
       <w>ufile</w>
