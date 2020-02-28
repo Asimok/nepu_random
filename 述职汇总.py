@@ -41,7 +41,7 @@ def write_excel():
         # 3. 添加Excel工作表
         mySheet = myWorkbook.add_sheet('大学生新闻中心2019-11述职得分汇总')
         # 4. 写入数据
-        for i in range(16):
+        for i in range(len(allscore)):
             for j in range(2):
                 mySheet.write(i, j, allscore[i][j])  # 写入数值
         # 5. 保存
