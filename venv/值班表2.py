@@ -21,7 +21,7 @@ if '刘岩' in s:
 file = 'E:\\大学生新闻中心值班表\\2019-2020第一学期后八周值班表1.xls'
 
 
-def read_excel(thisfile):
+def read_excel_allinfo(thisfile):
     print("正在读取 " + thisfile + " 的空课表...")
     wb = xlrd.open_workbook(filename=thisfile)  # 打开文件
     sheet1 = wb.sheet_by_index(0)  # 通过索引获取表格
@@ -62,5 +62,5 @@ def count_num():
 
 
 if __name__ == '__main__':
-    read_excel(file)
+    read_excel_allinfo(file)
     count_num()

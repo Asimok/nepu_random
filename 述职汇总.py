@@ -16,7 +16,7 @@ allscore = [[0 for col in range(2)] for row in range(16)]
 filenum = 0
 
 
-def read_excel(thisfile):
+def read_excel_allinfo(thisfile):
     print("正在读取 " + thisfile)
     wb = xlrd.open_workbook(filename=thisfile)  # 打开文件
     sheet1 = wb.sheet_by_index(0)  # 通过索引获取表格
@@ -78,7 +78,7 @@ def sort(a):
 if __name__ == '__main__':
     delete_file()
     for m in range(len(fileList)):
-        read_excel(abspath + fileList[m])
+        read_excel_allinfo(abspath + fileList[m])
         filenum = m + 1
     print('文件读取成功！')
     calculate_score(filenum)

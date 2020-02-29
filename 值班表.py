@@ -17,7 +17,7 @@ fileList = os.listdir(file)
 allname = [[0 for col in range(5)] for row in range(4)]
 
 
-def read_excel(thisfile):
+def read_excel_allinfo(thisfile):
     print("正在读取 " + thisfile + " 的空课表...")
     wb = xlrd.open_workbook(filename=thisfile)  # 打开文件
     sheet1 = wb.sheet_by_index(0)  # 通过索引获取表格
@@ -200,10 +200,10 @@ def delete_maxtwo():
 
 if __name__ == '__main__':
     # 读取Excel
-    # read_excel(file1)
-    # read_excel(file2)
+    # read_excel_allinfo(file1)
+    # read_excel_allinfo(file2)
     for filenum in range(len(fileList)):
-        read_excel(abspath + fileList[filenum])
+        read_excel_allinfo(abspath + fileList[filenum])
 
     count_num()
     check_oneday()
