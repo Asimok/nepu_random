@@ -2,14 +2,16 @@ import os
 
 import xlrd
 import xlwt
-PartIn=''
-Push=''
-nameAndMajor=[]
-name=[]
+
+PartIn = ''
+Push = ''
+nameAndMajor = []
+name = []
 # 参与次数
-nameAndSorcePartInDict ={}
+nameAndSorcePartInDict = {}
 # 推送次数
-nameAndSorcePushDict ={}
+nameAndSorcePushDict = {}
+
 
 def read_excel_getNameAndMajor(thisfile):
     print("正在读取 " + thisfile)
@@ -18,9 +20,8 @@ def read_excel_getNameAndMajor(thisfile):
     for i in range(sheet1.nrows):
         if i > 0:
             rows = sheet1.row_values(i)  # 获取行内容
-            nameAndMajor.append(rows[0]+'('+rows[3]+')')
+            nameAndMajor.append(rows[0] + '(' + rows[3] + ')')
             name.append(rows[0])
-
 
 
 def read_excel_allinfo(thisfile):
@@ -36,24 +37,24 @@ def read_excel_allinfo(thisfile):
             PartIn = PartIn.replace('，', '')
             PartIn = PartIn.replace('、', '')
             PartIn = PartIn.replace('/', '')
-            PartIn=PartIn+''.join(rows[3].split())+''.join(rows[4].split())+\
-                   ''.join(rows[5].split())+''.join(rows[6].split())
-            Push=Push+''.join(rows[9].split())
+            PartIn = PartIn + ''.join(rows[3].split()) + ''.join(rows[4].split()) + \
+                     ''.join(rows[5].split()) + ''.join(rows[6].split())
+            Push = Push + ''.join(rows[9].split())
             # print(rows)
+
 
 def countNum():
     print("正在统计推送次数")
     global nameAndSorcePartInDict
     global nameAndSorcePushDict
-    times=[]
+    times = []
     for i in range(name.__len__()):
         times.append(0)
-    nameAndSorcePartInDict=dict(zip(nameAndMajor,times))
+    nameAndSorcePartInDict = dict(zip(nameAndMajor, times))
     nameAndSorcePushDict = dict(zip(nameAndMajor, times))
     for key in nameAndSorcePartInDict:
-        nameAndSorcePartInDict[key]=nameAndSorcePartInDict[key]+PartIn.count(key[0:key.index('(')])
-        nameAndSorcePushDict[key]=nameAndSorcePushDict[key]+Push.count(key[0:key.index('(')])
-
+        nameAndSorcePartInDict[key] = nameAndSorcePartInDict[key] + PartIn.count(key[0:key.index('(')])
+        nameAndSorcePushDict[key] = nameAndSorcePushDict[key] + Push.count(key[0:key.index('(')])
 
 
 def sortDict():
@@ -64,8 +65,8 @@ def sortDict():
     global sort_PushDict
     sort_PartIn = sorted(nameAndSorcePartInDict.items(), key=lambda item: item[1], reverse=True)
     sort_Push = sorted(nameAndSorcePushDict.items(), key=lambda item: item[1], reverse=True)
-    sort_PartInDict=dict(sort_PartIn)
-    sort_PushDict=dict(sort_Push)
+    sort_PartInDict = dict(sort_PartIn)
+    sort_PushDict = dict(sort_Push)
     # print("参与情况")
     # print(sort_PartInDict)
     # print("推送情况")
@@ -80,27 +81,28 @@ def all():
     global sort_end_dict
     for key in sort_PartInDict:
         # print(key)
-        sort_PushDict[key]=int(sort_PushDict[key])+int(sort_PartInDict[key])
+        sort_PushDict[key] = int(sort_PushDict[key]) + int(sort_PartInDict[key])
     sort_end = sorted(sort_PushDict.items(), key=lambda item: item[1], reverse=True)
-    sort_end_dict=dict(sort_end)
+    sort_end_dict = dict(sort_end)
     print(sort_end_dict)
 
+
 def write_excel():
-        global sort_end
-        print('正在生成汇总表...')
-        # 2. 创建Excel工作薄
-        myWorkbook = xlwt.Workbook()
-        # 3. 添加Excel工作表
-        mySheet = myWorkbook.add_sheet('大学生新闻中心2020量化统计汇总')
-        # 4. 写入数据
-        i=0
-        for key in sort_end_dict:
-            mySheet.write(i, 0, key)  # 写入数值
-            mySheet.write(i, 1,  sort_end_dict[key])  # 写入数值
-            i=i+1
-        # 5. 保存
-        myWorkbook.save('大学生新闻中心2020量化统计汇总.xls')
-        print('生成汇总表成功！')
+    global sort_end
+    print('正在生成汇总表...')
+    # 2. 创建Excel工作薄
+    myWorkbook = xlwt.Workbook()
+    # 3. 添加Excel工作表
+    mySheet = myWorkbook.add_sheet('大学生新闻中心2020量化统计汇总')
+    # 4. 写入数据
+    i = 0
+    for key in sort_end_dict:
+        mySheet.write(i, 0, key)  # 写入数值
+        mySheet.write(i, 1, sort_end_dict[key])  # 写入数值
+        i = i + 1
+    # 5. 保存
+    myWorkbook.save('大学生新闻中心2020量化统计汇总.xls')
+    print('生成汇总表成功！')
 
 
 def delete_file():
@@ -112,7 +114,6 @@ def delete_file():
 
 
 if __name__ == '__main__':
-
     read_excel_getNameAndMajor("专业统计.xlsx")
     read_excel_allinfo("大学生新闻中心量化数据统计表.xlsx")
     countNum()
@@ -120,4 +121,3 @@ if __name__ == '__main__':
     all()
     delete_file()
     write_excel()
-
